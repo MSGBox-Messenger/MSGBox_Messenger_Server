@@ -28,4 +28,8 @@ public class ChatHub : Hub
     {
         await Groups.AddToGroupAsync(Context.ConnectionId, chatName);
     }
+    public async Task LeaveChat(string chatName)
+    {
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatName);
+    }
 }
