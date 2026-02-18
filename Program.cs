@@ -14,11 +14,18 @@ app.MapGet("/", () => "The MSGBox Messager Server is online");
 app.Run();
 
 // Message Server main class
-// Take messages an send it to all other clients
+// Take messages an send it to other clients
+// Create private rooms
 public class ChatHub : Hub
 {
-    public async Task SendMessage(string user, string message)
+
+    public async Task SendToGroup(string chatName, string user, string message)
     {
-        await Clients.All.SendAsync("ReceiveMessage", user, message);
+        await Clients.Group(chatName).SendAsync("ReceiveMessage", user, message);
+    }
+
+    public async Task JoinChat(string chatName)
+    {
+        await Groups.AddToGroupAsync(Context.ConnectionId, chatName);
     }
 }
