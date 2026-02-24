@@ -1,2 +1,2 @@
 # MSGBox Server
-- The Server for the MSGBox Messenger
+MSBBox is a Open Source Messenger and this is the Server for the Messenger
