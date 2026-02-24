@@ -19,6 +19,17 @@ app.Run();
 public class ChatHub : Hub
 {
 
+    private static readonly Dictionary<string, string> UserKeys = new();
+    public void RegisterKey(string user, string publicKeyBase64)
+    {
+        UserKeys[user] = publicKeyBase64;
+    }
+
+    public string GetUserKey(string user)
+    {
+        return UserKeys.TryGetValue(user, out var key) ? key : null;
+    }
+
     public async Task SendToGroup(string chatName, string user, string message)
     {
         await Clients.Group(chatName).SendAsync("ReceiveMessage", user, message);
